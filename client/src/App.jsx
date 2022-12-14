@@ -1,40 +1,83 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import { CalendarHeader } from './components/CalendarHeader';
+import { Day } from './components/Day';
+import { NewEventModal } from './components/NewEventModal';
+import { DeleteEventModal } from './components/DeleteEventmodal';
+import { useDate } from './components/Hooks';
 
-function App() {
-  const [count, setCount] = useState(0)
+export const App = () => {
+  const [nav, setNav] = useState(0);
+  const [clicked, setClicked] = useState();
+  const [events, setEvents] = useState(
+    localStorage.getItem('events') ? 
+      JSON.parse(localStorage.getItem('events')) : 
+      []
+  );
 
-  function signup(){
-    axios.post('signup/',{username: 'zee', email:'zaunab@z.com',password:'bibo'}).then(res=>{console.log(res)})
-  }
+  const eventForDate = date => events.find(e => e.date === date);
 
-  return (
-    <div className="App">
+  useEffect(() => {
+    localStorage.setItem('events', JSON.stringify(events));
+  }, [events]);
 
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+  const { days, dateDisplay } = useDate(events, nav);
+
+  return(
+    <>
+      <div id="container">
+        <CalendarHeader 
+          dateDisplay={dateDisplay}
+          onNext={() => setNav(nav + 1)}
+          onBack={() => setNav(nav - 1)}
+        />
+
+        <div id="weekdays">
+          <div>Sunday</div>
+          <div>Monday</div>
+          <div>Tuesday</div>
+          <div>Wednesday</div>
+          <div>Thursday</div>
+          <div>Friday</div>
+          <div>Saturday</div>
+        </div>
+
+        <div id="calendar">
+          {days.map((d, index) => (
+            <Day
+              key={index}
+              day={d}
+              onClick={() => {
+                if (d.value !== 'padding') {
+                  setClicked(d.date);
+                }
+              }}
+            />
+          ))}
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
 
-export default App
+      {
+        clicked && !eventForDate(clicked) &&
+        <NewEventModal
+          onClose={() => setClicked(null)}
+          onSave={title => {
+            setEvents([ ...events, { title, date: clicked }]);
+            setClicked(null);
+          }}
+        />
+      }
+
+      {
+        clicked && eventForDate(clicked) &&
+        <DeleteEventModal 
+          eventText={eventForDate(clicked).title}
+          onClose={() => setClicked(null)}
+          onDelete={() => {
+            setEvents(events.filter(e => e.date !== clicked));
+            setClicked(null);
+          }}
+        />
+      }
+    </>
+  );
+};
