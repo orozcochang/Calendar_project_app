@@ -13,9 +13,12 @@
     "@mobiscroll/react": "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.20.0.tgz",
     "axios": "^1.2.1",
     "bootswatch": "^5.2.3",
+    "date-fns": "^2.29.3",
     "devextreme-react": "^22.2.3",
     "react": "^18.2.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
+    "react-modal": "^3.16.1",
     "react-router-dom": "^6.4.5"
   },
   "devDependencies": {

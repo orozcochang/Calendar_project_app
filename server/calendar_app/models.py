@@ -11,3 +11,13 @@ class AppUser(AbstractUser):
     )
     USERNAME_FIELD= 'email'
     REQUIRED_FIELDS=[]
+
+class Events(models.Model):
+    date = models.DateField
+    event = models.CharField(max_length=255)
+    user = models.ForeignKey('AppUser', on_delete=models.CASCADE)
+
+class Shift(models.Model):
+    date = models.DateField
+    shift = models.CharField(max_length=15)
+    user = models.ForeignKey('AppUser', on_delete=models.CASCADE)
