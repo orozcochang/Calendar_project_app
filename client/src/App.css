@@ -123,3 +123,9 @@ button {
   position: absolute;
   background-color: rgba(0,0,0,0.8);
 }
+.table tbody tr td:nth-child(even){
+  background-color: dimgray;
+}
+.table tbody tr td:nth-child(odd){
+  background-color: gray;
+}

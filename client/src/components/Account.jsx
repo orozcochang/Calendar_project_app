@@ -38,6 +38,15 @@ async function updateEmail(){
             setSuccessEmail(false)
             setErrorMsg(null)
         }, 3000);
+
+    }
+}
+
+async function deleteAccount(){
+    let response = await axios.delete('api/del_user/',{'email':activeEmail})
+    console.log(response.data)
+    if (response.data.success === true){
+    window.open('/')
     }
 }
 
@@ -57,6 +66,7 @@ async function updateEmail(){
                 <a className={"card-title"} onClick={handleEditPass}>Set new password</a>
                 {editPass && <p><input className={"text-success"} placeholder="Enter new password"></input><button className={"btn btn-dark"} onClick={handleEditPass}>Save</button><button className={"btn btn-dark"} style={{minWidth:"100px"}} onClick={handleEditPass}>Cancel</button></p>}
                  <p className={"card-text"}>Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                 <button className={"btn btn-dark"} style={{minWidth:"100px"}} onClick={deleteAccount}>Delete Account</button>
             </div>
         </div>
             

@@ -1,1 +1,15 @@
 .venv
+venv
+static
+.venv
+.env
+env
+venv
+node_modules
+**/*.pyc
+node_modules
+build
+static
+media
+package-lock.json
+**/__pycache__

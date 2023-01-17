@@ -8,6 +8,7 @@ import AddEventForm from './components/AddEvent';
 import Authentication from './components/Authentication';
 import Login from './components/Login';
 import Account from './components/Account';
+import './App.css'
 
 function App () {
   
@@ -40,6 +41,13 @@ const csrftoken = getCookie('csrftoken');
     next();
   }
 
+  const options = async () => {
+    let response = await axios.get('api/weather/')
+    console.log(response.data)
+  };
+  
+  console.log(options)
+
   async function logout(){
     axios.post('api/logout/')
     console.log(response.data)
@@ -54,6 +62,7 @@ const csrftoken = getCookie('csrftoken');
           
           <a href='' style={{margin: '2px'}}> Home </a>
           <Link to='/' style={{margin: '2px'}}> Group </Link>
+          <Link to='/calendar' style={{margin: '2px'}}> Calendar </Link>
           <Link to='/account' style={{margin: '2px'}}> Account </Link>
           <a href='' style={{margin: '2px'}} onClick={logout}> Logout </a>
           </div>
@@ -64,6 +73,7 @@ const csrftoken = getCookie('csrftoken');
         <Routes>
           <Route path='' element={<Authentication />}/>
           <Route path='/login' element={<Login />}/>
+          <Route path='/calendar' element={<HomePage />} onEnter={requireAuth}/>
           <Route path='/dashboard' element={<HomePage />} onEnter={requireAuth}/>
           <Route path='/account' element={<Account />} onEnter={requireAuth}/>
         </Routes>

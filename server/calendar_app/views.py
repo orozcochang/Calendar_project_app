@@ -10,6 +10,10 @@ import requests as HTTP_Client
 from requests_oauthlib import OAuth1
 import os
 from django.contrib.auth import authenticate, login, logout
+import http.client
+import holidayapi
+from .serializers import UserSerializer
+from rest_framework.response import Response
 
 def index(request):
     index_file = open('static/index.html').read()
@@ -18,10 +22,10 @@ def index(request):
 def signup(request):
     pass
 @api_view(['POST'])
-def whoami(request):
-    json_data = json.loads(request.body)
-    print(json_data['month'])
-    month = json_data['month']
+def season(request):
+    print('SEASON?????????')
+    print(request.data)
+    month = request.data['month']
     auth = OAuth1('57f7857f16a041e2b5b66d9fc24b375c', '04514af5fa6649c7ada57e3feb5ffbfc')
     endpoint = f"http://api.thenounproject.com/icon/{month}"
 
@@ -51,10 +55,16 @@ def calendar_view(request):
 
 @api_view(['GET','POST'])
 def the_people(request):
-    print('------------------------it goes here-------------------------')
+    print('------------------------it goes to the people-------------------------')
     if request.method == 'GET':
-        data = [{'name':'bill', 'shift':'mids'},{'name':'bill', 'shift':'days'},{'name':'bill', 'shift':'swings'}]
-        return JsonResponse({'data': data})
+        # data = [{'name':'bill', 'shift':'mids'},{'name':'bill', 'shift':'days'},{'name':'bill', 'shift':'swings'}]
+        # query = AppUser.objects.all()
+        # qs_json=serializers.serialize('json',query)
+        # print(qs_json)
+        # return JsonResponse({'data': qs_json})
+        users = AppUser.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
     return JsonResponse({'success':False})
 
 @api_view(['POST'])
@@ -135,3 +145,52 @@ def update_email(request):
         query.save()
         return JsonResponse({'success':True})
     return JsonResponse({'success':False})
+
+@api_view(['DELETE'])
+def del_user(request):
+    if request.user.is_authenticated:
+        print('---------THIS IS FROM CURRENT USER-------',request.user)
+        user = str(request.user)
+        logout(request._request)
+        query = AppUser.objects.get(username=user)
+        query.delete()
+        return JsonResponse({'success':True})
+    return JsonResponse({'success':False})
+
+@api_view(['GET'])
+def weather(request):
+    print('hello')
+    conn = http.client.HTTPSConnection("community-hacker-news-v1.p.rapidapi.com")
+
+    headers = {
+        'X-RapidAPI-Key': "62065c5400msh1eb73f21e9c56d1p13b83djsndd4960c60d73",
+        'X-RapidAPI-Host': "community-hacker-news-v1.p.rapidapi.com"
+        }
+
+    conn.request("GET", "/updates.json?print=pretty", headers=headers)
+
+    res = conn.getresponse()
+    data = res.read()
+
+    print(data.decode("utf-8"))
+    return JsonResponse({'data':data})
+
+@api_view(['GET'])
+def holiday(request):
+    hapi = holidayapi.v1('_YOUR_API_KEY_')
+
+    parameters = {
+        # Required
+        'country': 'US',
+        'year':    2016,
+        # Optional
+        # 'month':    7,
+        # 'day':      4,
+        # 'previous': True,
+        # 'upcoming': True,
+        # 'public':   True,
+        # 'pretty':   True,
+    }
+
+    holidays = hapi.holidays(parameters)
+    return JsonResponse({'response': holidays})

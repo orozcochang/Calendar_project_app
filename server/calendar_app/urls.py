@@ -6,9 +6,8 @@ urlpatterns = [
     path('signup/', views.signup),
     path('login/', views.login),
     path('logout/', views.logout),
-    path('whoami/', views.whoami),
     path('api/events/', views.calendar_view),
-    path('api/season/', views.whoami),
+    path('api/season/', views.season),
     path('api/the_people/', views.the_people),
     path('api/email-check/', views.email_check),
     path('api/register/', views.register),
@@ -16,4 +15,7 @@ urlpatterns = [
     path('api/logout/', views.logout_request),
     path('api/current_user/', views.current_user),
     path('api/update-email/', views.update_email),
+    path('api/del_user/', views.del_user),
+    path('api/weather/', views.weather),
+    path('api/holiday/', views.holiday),
 ]
