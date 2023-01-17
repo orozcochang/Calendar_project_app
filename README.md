@@ -5,6 +5,11 @@ Some fatures included are:
 &emsp;-User authentication: Login/logout, create account, delete account.  
 &emsp;-API calls to thenounproject.  
 &emsp;-Time manipulation to display a calendar in weekly increments.  
+
+The technical stack is:  
+&emsp; -Frontend: JavaScript/React, including Bootstrap libraries  
+&emsp; -Backend: Python/Django  
+&emsp; -Database: PostgreSQL 
   
 ### Home Page  
 The home page loads on a register screen and prompots the user to click the login link if they have and account. The registration form is set to accept valid email formats and to run a check after every input to see if there is an existing user in the database with that email. Once registered, it prompts the user to login.  
