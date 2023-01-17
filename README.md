@@ -1,4 +1,4 @@
-# personal_project
+# Calendar Project App
 
 The goal for this project is to create a scheduling application.  
 Some fatures included are:  
