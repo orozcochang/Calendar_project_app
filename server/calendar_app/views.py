@@ -16,7 +16,7 @@ from .serializers import UserSerializer
 from rest_framework.response import Response
 
 def index(request):
-    index_file = open('static/index.html').read()
+    index_file = open('server/static/index.html').read()
     return HttpResponse(index_file)
 @api_view(['POST'])
 def signup(request):
@@ -26,7 +26,7 @@ def season(request):
     print('SEASON?????????')
     print(request.data)
     month = request.data['month']
-    auth = OAuth1('57f7857f16a041e2b5b66d9fc24b375c', '04514af5fa6649c7ada57e3feb5ffbfc')
+    auth = OAuth1(os.getenv('API_SECRET1'), os.getenv('API_SECRET2'))
     endpoint = f"http://api.thenounproject.com/icon/{month}"
 
     response = HTTP_Client.get(endpoint, auth=auth)

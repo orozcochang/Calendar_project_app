@@ -87,13 +87,13 @@ function HomePage() {
         <thead style={{ paddingTop: '3px' }}>
           <tr>
             <th scope="col" onClick={() => setDay(MyDatePicker)}><img src={image} alt={image} width={"50px"} height={"50px"} /></th>
-            <th scope="col">{startWeek.getDate()}</th>
-            <th scope="col">{(add(startWeek, { days: 1 })).getDate()}</th>
-            <th scope="col">{(add(startWeek, { days: 2 })).getDate()}</th>
-            <th scope="col">{(add(startWeek, { days: 3 })).getDate()}</th>
-            <th scope="col">{(add(startWeek, { days: 4 })).getDate()}</th>
-            <th scope="col">{(add(startWeek, { days: 5 })).getDate()}</th>
-            <th scope="col">{(add(startWeek, { days: 6 })).getDate()}</th>
+            <th scope="col"><center>{startWeek.getDate()}</center></th>
+            <th scope="col"><center>{(add(startWeek, { days: 1 })).getDate()}</center></th>
+            <th scope="col"><center>{(add(startWeek, { days: 2 })).getDate()}</center></th>
+            <th scope="col"><center>{(add(startWeek, { days: 3 })).getDate()}</center></th>
+            <th scope="col"><center>{(add(startWeek, { days: 4 })).getDate()}</center></th>
+            <th scope="col"><center>{(add(startWeek, { days: 5 })).getDate()}</center></th>
+            <th scope="col"><center>{(add(startWeek, { days: 6 })).getDate()}</center></th>
           </tr>
           <tr>
             <th scope="col"></th>
@@ -113,12 +113,12 @@ function HomePage() {
             <tr>
               <th scope={"row"}>{person.email}</th>
               <td className={"td"} onClick={()=> {handleClick(), setEventDate((add(startWeek,{days: 1 })).getDate()), setEventUser(person.email)}}></td>
-              <td className={"td"}><select><option>Day Shift</option><option>Evening Shift</option><option>Night Shift</option><option>Day Off</option></select></td>
-              <td className={"td"}><select><option>Day Shift</option><option>Evening Shift</option><option>Night Shift</option><option>Day Off</option></select></td>
-              <td className={"td"}><select><option>Day Shift</option><option>Evening Shift</option><option>Night Shift</option><option>Day Off</option></select></td>
-              <td className={"td"}><select><option>Day Shift</option><option>Evening Shift</option><option>Night Shift</option><option>Day Off</option></select></td>
-              <td className={"td"}><select><option>Day Shift</option><option>Evening Shift</option><option>Night Shift</option><option>Day Off</option></select></td>
-              <td className={"td"}><select><option>Day Shift</option><option>Evening Shift</option><option>Night Shift</option><option>Day Off</option></select></td>
+              <td className={"td"} onClick={()=> {handleClick(), setEventDate((add(startWeek,{days: 1 })).getDate()), setEventUser(person.email)}}></td>
+              <td className={"td"} onClick={()=> {handleClick(), setEventDate((add(startWeek,{days: 1 })).getDate()), setEventUser(person.email)}}></td>
+              <td className={"td"} onClick={()=> {handleClick(), setEventDate((add(startWeek,{days: 1 })).getDate()), setEventUser(person.email)}}></td>
+              <td className={"td"} onClick={()=> {handleClick(), setEventDate((add(startWeek,{days: 1 })).getDate()), setEventUser(person.email)}}></td>
+              <td className={"td"} onClick={()=> {handleClick(), setEventDate((add(startWeek,{days: 1 })).getDate()), setEventUser(person.email)}}></td>
+              <td className={"td"} onClick={()=> {handleClick(), setEventDate((add(startWeek,{days: 1 })).getDate()), setEventUser(person.email)}}></td>
             </tr>
             </>
             )
